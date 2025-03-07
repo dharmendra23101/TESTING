@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask ML API</title>
+</head>
+<body>
+    <h1>Flask ML API Test</h1>
+    <input type="number" id="inputValue" placeholder="Enter study hours">
+    <button onclick="predict()">Predict</button>
+    <p id="output"></p>
+
+    <script>
+        async function predict() {
+            const studyHours = document.getElementById("inputValue").value;
+            const response = await fetch("http://127.0.0.1:5000/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ study_hours: Number(studyHours) })
+            });
+            const data = await response.json();
+            document.getElementById("output").innerText = JSON.stringify(data);
+        }
+    </script>
+</body>
+</html>
